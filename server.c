@@ -69,7 +69,7 @@ int __cdecl main(void)
     hints.ai_flags = AI_PASSIVE; // 
 
     // Определите адрес и порт сервера
-    //Getaddrinfo(NULL, DEFAULT_PORT, &hints, &result); // Получения информации для содания сокета
+    // Получения информации для содания сокета
     iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
     if (iResult != 0) {
         printf("getaddrinfo failed with error: %d\n", iResult);
@@ -77,7 +77,7 @@ int __cdecl main(void)
         exit(1);
     }
     // Создайте сокета, чтобы сервер прослушивал клиентские соединения.
-    //ListenSocket = Socket(result->ai_family, result->ai_socktype, result->ai_protocol); // Создание сокета
+    // Создание сокета
     ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
     if (ListenSocket == INVALID_SOCKET) {
         printf("socket failed with error: %d\n", WSAGetLastError());
@@ -85,7 +85,7 @@ int __cdecl main(void)
         exit(1);
     }
     // Настройте сокет прослушивания TCP
-    //Bind(ListenSocket, result); // Установка режима прослушивания tcp трафика на сокете
+    // Установка режима прослушивания tcp трафика на сокете
     iResult = bind(ListenSocket, result->ai_addr, (int)result->ai_addrlen);
     if (iResult == SOCKET_ERROR) {
         printf("bind failed with error: %d\n", WSAGetLastError());
@@ -96,7 +96,7 @@ int __cdecl main(void)
     }
     freeaddrinfo(result); // Очищаем вспомогательную инфу
 
-    //Listen(ListenSocket, 1); // Подключение к сокету для прослушивания (1 - макс очередь на поключение к сокету)
+    // Подключение к сокету для прослушивания (1 - макс очередь на поключение к сокету)
     iResult = listen(ListenSocket, 1);
     if (iResult == SOCKET_ERROR) {
         printf("listen failed with error: %d\n", WSAGetLastError());
@@ -105,7 +105,7 @@ int __cdecl main(void)
         exit(1);
     }
     // Прием клиентского сокета
-    //!!!ClientSocket = Accept(ListenSocket); // Функция принимает входящее соединение и записывает информацию о нём в client_socket
+    // Функция принимает входящее соединение и записывает информацию о нём в client_socket
     ClientSocket = accept(ListenSocket, NULL, NULL);
     if (ClientSocket == INVALID_SOCKET) {
         printf("accept failed with error: %d\n", WSAGetLastError());
